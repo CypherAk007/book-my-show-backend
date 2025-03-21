@@ -1,6 +1,7 @@
 package com.backend.BookMyShowBackend.models;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,6 +13,6 @@ import java.util.List;
 @Entity
 public class Region extends BaseModel{
     private String name;
-    @OneToMany(mappedBy = "region_id")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "region_id")
     private List<Theater> theaters;
 }

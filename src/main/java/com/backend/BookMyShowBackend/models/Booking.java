@@ -1,7 +1,9 @@
 package com.backend.BookMyShowBackend.models;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,7 +23,10 @@ public class Booking extends BaseModel{
     @ManyToMany
     private List<ShowSeat> showSeats;
 
-
+//    Avoid jpa creating multiple columns for
+//    same relation only one column is req
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
     private Date time;
     private MovieShow movieShow;

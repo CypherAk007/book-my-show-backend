@@ -14,6 +14,8 @@ public class User extends BaseModel{
     private String name;
     private String email;
     private String password;
-    @OneToMany
+
+//    every list will have user_id
+    @OneToMany(mappedBy = "user_id")
     private List<Booking> bookings;
 }

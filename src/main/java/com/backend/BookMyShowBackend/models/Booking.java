@@ -1,5 +1,6 @@
 package com.backend.BookMyShowBackend.models;
 
+import jakarta.persistence.Entity;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,6 +9,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@Entity
 public class Booking extends BaseModel{
     private BookingStatus status;
     private List<ShowSeat> showSeats;

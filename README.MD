@@ -54,4 +54,8 @@
 ##### Issue - 1 - MySqlWorkBench Unable to connect to Localhost:3306
 - Uninstall and reInstall[brew install --cask mysqlworkbench
   ]
+- Remove the cache
+  - rm -rf ~/Library/Application\ Support/MySQL/Workbench
+    rm -rf ~/Library/Preferences/com.oracle.mysql.workbench.plist
+    rm -rf ~/Library/Saved\ Application\ State/com.oracle.mysql.workbench.savedState
 - Try now it will work / User id and pwd -> check note book

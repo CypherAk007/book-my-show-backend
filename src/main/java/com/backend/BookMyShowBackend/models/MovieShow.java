@@ -1,8 +1,7 @@
 package com.backend.BookMyShowBackend.models;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 
-import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,5 +19,7 @@ public class MovieShow extends BaseModel{
     @ManyToOne
     private Screen screen;
 
+    @Enumerated(value = EnumType.STRING)
+    @ElementCollection
     private List<Feature> features;
 }

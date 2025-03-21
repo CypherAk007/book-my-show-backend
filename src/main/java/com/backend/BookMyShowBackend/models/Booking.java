@@ -11,6 +11,8 @@ import java.util.List;
 @Setter
 @Entity
 public class Booking extends BaseModel{
+//    @Enumerated(value = EnumType.ORDINAL)
+    @Enumerated(value = EnumType.STRING)
     private BookingStatus status;
 //    1 booking many show seats
 //    1 show seat had to be one booking but

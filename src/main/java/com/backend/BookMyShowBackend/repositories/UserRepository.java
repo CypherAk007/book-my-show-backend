@@ -9,6 +9,7 @@ public interface UserRepository extends JpaRepository<User,Long> {
 //    JpaRepository<Object(you want to comm.),(primarykeyType)>
 
     //    Select * from user where email = 'given email'  - internal query of below declaration
+
     Optional<User> findByEmail(String email);
 //    Column name(email) should match with findBy"Email"
     //    if we want to pass multiple parameters

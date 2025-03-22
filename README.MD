@@ -46,6 +46,10 @@
 #### Step -2 [Class Diagram]
 ![BookMyShow ClassDiagram.png](BookMyShow%20ClassDiagram.png)
 
+#### Step -3 [Cardinality & ER Diagram]
+![bookmyshowERDiagram.png](bookmyshowERDiagram.png)
+- How to auto generate ER - Refer [Blog](https://medium.com/@tushar0618/how-to-create-er-diagram-of-a-database-in-mysql-workbench-209fbf63fd03)
+
 ### Developer Reference
 #### Step -x [Initialize Spring Project]
 ![SpringInitializer.png](SpringInitializer.png)

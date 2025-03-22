@@ -27,7 +27,7 @@ public class Booking extends BaseModel{
     // @JoinColumn: user user for forign key relationship
 //    user user_id as name for it
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user")
     private User user;
     private Date time;
 

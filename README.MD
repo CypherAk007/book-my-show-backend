@@ -59,3 +59,10 @@
     rm -rf ~/Library/Preferences/com.oracle.mysql.workbench.plist
     rm -rf ~/Library/Saved\ Application\ State/com.oracle.mysql.workbench.savedState
 - Try now it will work / User id and pwd -> check note book
+
+### Development Issues and Resolutions
+##### Issue - 1 
+- Error: Entity 'com.backend.BookMyShowBackend.models.Theater' has no identifier (every '@Entity' class must declare or inherit at least one '@Id' or '@EmbeddedId' property)
+- @OneToMany(fetch = FetchType.LAZY, mappedBy = "region_id")
+  private List<Theater> theaters;
+- mappedBy = "region_id" -> mappedBy = "region"//it should be object name not db table id

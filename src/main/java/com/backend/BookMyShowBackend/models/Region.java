@@ -13,6 +13,6 @@ import java.util.List;
 @Entity
 public class Region extends BaseModel{
     private String name;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "region_id")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "region")
     private List<Theater> theaters;
 }

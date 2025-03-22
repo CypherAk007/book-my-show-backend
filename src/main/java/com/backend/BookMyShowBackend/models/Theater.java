@@ -9,12 +9,13 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-public class Theater {
+public class Theater extends BaseModel{
     private String name;
-    @ManyToOne(fetch = FetchType.LAZY)
-//    above annot tells that until we dont call theater.getRegion()
+
+//    below annot tells that until we dont call theater.getRegion()
 //    dont load the obj during container startup
-    @JoinColumn(name = "region_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "region")
     private Region region;
 
     @OneToMany

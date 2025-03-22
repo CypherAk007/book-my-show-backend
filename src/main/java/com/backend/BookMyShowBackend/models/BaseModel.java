@@ -13,11 +13,11 @@ import java.util.Date;
 @Setter
 @MappedSuperclass
 public class BaseModel {
-    @Id
     //    Below tells how to generate the id
 //    Identity -> auto increment -> 0,1,2,3,4...
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     private Date createdAt;
     private Date updatedAt;
 }

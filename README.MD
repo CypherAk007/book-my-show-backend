@@ -51,8 +51,11 @@
 - How to auto generate ER - Refer [Blog](https://medium.com/@tushar0618/how-to-create-er-diagram-of-a-database-in-mysql-workbench-209fbf63fd03)
 
 ### Developer Reference
-#### Step -x [Initialize Spring Project]
+#### [Initialize Spring Project]
 ![SpringInitializer.png](SpringInitializer.png)
+
+#### Encrypting password
+- mvnrepository.com -> spring-boot-starter-security
 
 ### Project Setup Issues
 ##### Issue - 1 - MySqlWorkBench Unable to connect to Localhost:3306
@@ -74,3 +77,14 @@
 - @OneToMany(fetch = FetchType.LAZY, mappedBy = "region_id")
   private List<Theater> theaters;
 - mappedBy = "region_id" -> mappedBy = "region"//it should be object name not db table id
+
+### Pending Implementations
+- Swagger
+- Frontend
+- REST Impl
+- Decorator - Addons Edible items
+- Offer + Promo
+- Email tickets to users once completed
+- Data Seed() auto populate test data
+- Application.yml config
+- AWS pipline and ECS Deployment

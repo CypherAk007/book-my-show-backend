@@ -2,6 +2,7 @@ package com.backend.BookMyShowBackend.services;
 
 import com.backend.BookMyShowBackend.models.User;
 import com.backend.BookMyShowBackend.repositories.UserRepository;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -23,14 +24,17 @@ public class UserService {
 
         User user = new User();
         user.setEmail(email);
-        user.setPassword(password);
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        user.setPassword(passwordEncoder.encode(password));
         return userRepository.save(user);
     }
 
     public User login(String email, String password) {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(()->new RuntimeException("No user Found!!"));
-        if(user.getPassword().equals(password)){
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+        if(passwordEncoder.matches(password,user.getPassword())){
             return user;
         }
         throw new RuntimeException("Invalid Credentials!!");

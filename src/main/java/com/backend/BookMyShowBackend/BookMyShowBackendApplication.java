@@ -28,7 +28,7 @@ public class BookMyShowBackendApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 //		SignupRequestDTO signupRequestDTO = new SignupRequestDTO();
-//		signupRequestDTO.setEmail("abhishekkrishnatm@gmail.com");
+//		signupRequestDTO.setEmail("abhishek@gmail.com");
 //		signupRequestDTO.setPassword("12345678");
 //
 //		SignupResponseDTO signupResponseDTO = userController.signup(signupRequestDTO);
@@ -36,7 +36,7 @@ public class BookMyShowBackendApplication implements CommandLineRunner {
 
 //		Login func
 		LoginRequestDTO loginRequestDTO = new LoginRequestDTO();
-		loginRequestDTO.setEmail("abhishekkrishnatm@gmail.com");
+		loginRequestDTO.setEmail("abhishek@gmail.com");
 		loginRequestDTO.setPassword("12345678");
 		LoginResponseDTO loginResponseDTO = userController.login(loginRequestDTO);
 		System.out.println(loginResponseDTO);

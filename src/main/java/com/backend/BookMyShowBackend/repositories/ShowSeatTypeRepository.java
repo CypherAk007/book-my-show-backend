@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface showSeatTypeRepository extends JpaRepository<ShowSeatType,Long> {
+public interface ShowSeatTypeRepository extends JpaRepository<ShowSeatType,Long> {
     List<ShowSeatType> findByMovieShow(MovieShow movieShow);
 }

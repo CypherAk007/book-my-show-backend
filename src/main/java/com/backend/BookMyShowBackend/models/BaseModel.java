@@ -20,4 +20,7 @@ public class BaseModel {
     private Long id;
     private Date createdAt;
     private Date updatedAt;
+//    public Long getId() {
+//        return id;
+//    }
 }

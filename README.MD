@@ -64,6 +64,10 @@
     rm -rf ~/Library/Saved\ Application\ State/com.oracle.mysql.workbench.savedState
 - Try now it will work / User id and pwd -> check note book
 
+##### Issue - 2 - Lombok Getter and Setter Issue
+![LombokIssue.png](LombokIssue.png)
+
+
 ### Development Issues and Resolutions
 ##### Issue - 1 
 - Error: Entity 'com.backend.BookMyShowBackend.models.Theater' has no identifier (every '@Entity' class must declare or inherit at least one '@Id' or '@EmbeddedId' property)

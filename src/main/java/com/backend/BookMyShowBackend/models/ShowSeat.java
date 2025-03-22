@@ -16,7 +16,7 @@ public class ShowSeat extends BaseModel{
     @ManyToOne
     private MovieShow movieShow;
 
-//    1showseat is part of 1seat of screen
+//    1 showseat is part of 1seat of screen
 //    1seat can be part multiple showseats (1pm-3pm/4pm-7pm)
     @ManyToOne
     private Seat seat;

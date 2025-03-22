@@ -14,4 +14,11 @@ public class BookTicketRequestDto {
     private Long userId;
     private Long showId;
 
+    public List<Long> getShowSeatIds() {
+        return showSeatIds;
+    }
+
+    public Long getShowId(){
+        return showId;
+    }
 }

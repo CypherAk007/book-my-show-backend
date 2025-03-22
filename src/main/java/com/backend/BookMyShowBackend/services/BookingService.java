@@ -1,7 +1,6 @@
 package com.backend.BookMyShowBackend.services;
 
-import com.backend.BookMyShowBackend.models.Booking;
-import com.backend.BookMyShowBackend.models.User;
+import com.backend.BookMyShowBackend.models.*;
 import com.backend.BookMyShowBackend.repositories.BookingRepository;
 import com.backend.BookMyShowBackend.repositories.ShowRepository;
 import com.backend.BookMyShowBackend.repositories.ShowSeatRepository;
@@ -11,6 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,23 +23,71 @@ public class BookingService {
     private final ShowRepository showRepository;
     private final ShowSeatRepository showSeatRepository;
     private final BookingRepository bookingRepository;
+    private final PriceCalculatorService priceCalculatorService;
 
 
     @Autowired
-    public BookingService(UserRepository userRepository, ShowRepository showRepository, ShowSeatRepository showSeatRepository, BookingRepository bookingRepository) {
+    public BookingService(UserRepository userRepository, ShowRepository showRepository, ShowSeatRepository showSeatRepository, BookingRepository bookingRepository,PriceCalculatorService priceCalculatorService) {
         this.userRepository = userRepository;
         this.showRepository = showRepository;
         this.showSeatRepository = showSeatRepository;
         this.bookingRepository = bookingRepository;
+        this.priceCalculatorService = priceCalculatorService;
     }
 
     @Transactional(isolation = Isolation.SERIALIZABLE)
 //     This will be running DB lock - open transaction in serializable isolation - do the transaction - close the transaction
     public Booking bookMovie(List<Long> showSeatIds, Long showId, Long userId) {
-        Optional<User> userOptional = userRepository.findById(userId);
-        return null;
+//        Optional<User> userOptional = userRepository.findById(userId);
+//        User user = userOptional.get();
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User with given Id not found"));
+
+        MovieShow movieShow = showRepository.findById(showId)
+                .orElseThrow(() -> new RuntimeException("Show with given ShowId not present"));
+
+        //        How to find all entities by list of ids
+        //        step3
+        List<ShowSeat> showSeats = showSeatRepository.findAllById(showSeatIds);
+
+        boolean allAvailable = showSeats.stream()
+                .allMatch(this::isShowSeatAvailable);
+
+        if(!allAvailable){
+            throw new RuntimeException("Selected Seats are not available!!");
+        }
+
+        showSeats.stream()
+                .forEach(showSeat -> {
+
+                    showSeat.setShowSeatStatus(ShowSeatStatus.LOCKED);
+                    showSeat.setBlockedAt(new Date());
+                });
+
+        List<ShowSeat> savedShowSeats = showSeatRepository.saveAll(showSeats);
+
+        Booking booking = Booking.builder()
+                .movieShow(movieShow)
+                .showSeats(savedShowSeats)
+                .user(user)
+                .status(BookingStatus.PENDING)
+                .time(new Date())
+                .amount(priceCalculatorService.calculatePrice(movieShow,savedShowSeats))
+                .payments(new ArrayList<>())
+                .build();
+
+        Booking savedBooking = bookingRepository.save(booking);
+        return savedBooking;
     }
 
+    private boolean isShowSeatAvailable(ShowSeat showSeat) {
+        if ((showSeat.getShowSeatStatus().equals(ShowSeatStatus.AVAILABLE)) || showSeat.getShowSeatStatus().equals(ShowSeatStatus.LOCKED) &&
+                Duration.between(new Date().toInstant(), showSeat.getBlockedAt().toInstant()).toMinutes() > 15) {
+            return true;
+        }
+        return false;
+
+    }
 }
 
 

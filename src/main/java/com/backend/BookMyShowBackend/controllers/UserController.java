@@ -1,8 +1,6 @@
 package com.backend.BookMyShowBackend.controllers;
 
-import com.backend.BookMyShowBackend.dtos.ResponseStatus;
-import com.backend.BookMyShowBackend.dtos.SignupRequestDTO;
-import com.backend.BookMyShowBackend.dtos.SignupResponseDTO;
+import com.backend.BookMyShowBackend.dtos.*;
 import com.backend.BookMyShowBackend.models.User;
 import com.backend.BookMyShowBackend.services.UserService;
 import org.springframework.stereotype.Controller;
@@ -28,5 +26,19 @@ public class UserController {
             signupResponseDTO.setMessage(e.getMessage());
         }
         return signupResponseDTO;
+    }
+
+    public LoginResponseDTO login(LoginRequestDTO requestDTO){
+        LoginResponseDTO responseDTO = new LoginResponseDTO();
+        try{
+            User user = userService.login(requestDTO.getEmail(),requestDTO.getPassword());
+            responseDTO.setUserId(user.getId());
+            responseDTO.setStatus(ResponseStatus.SUCCESS);
+            responseDTO.setMessage("SignUp Successfull!!");
+        }catch (Exception e){
+            responseDTO.setStatus(ResponseStatus.FAILURE);
+            responseDTO.setMessage(e.getMessage());
+        }
+        return responseDTO;
     }
 }

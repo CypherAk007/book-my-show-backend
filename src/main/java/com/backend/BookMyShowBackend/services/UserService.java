@@ -26,6 +26,15 @@ public class UserService {
         user.setPassword(password);
         return userRepository.save(user);
     }
+
+    public User login(String email, String password) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(()->new RuntimeException("No user Found!!"));
+        if(user.getPassword().equals(password)){
+            return user;
+        }
+        throw new RuntimeException("Invalid Credentials!!");
+    }
 //    1. check if user already exist via email -> if yes throw err
 //    2. Create new user
 //    3. save the new user details

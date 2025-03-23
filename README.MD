@@ -54,6 +54,9 @@
 #### [Initialize Spring Project]
 ![SpringInitializer.png](SpringInitializer.png)
 
+#### [Swagger URL]
+- http://localhost:8080/swagger-ui/index.html
+
 #### Encrypting password
 - mvnrepository.com -> spring-boot-starter-security
 
@@ -78,8 +81,13 @@
   private List<Theater> theaters;
 - mappedBy = "region_id" -> mappedBy = "region"//it should be object name not db table id
 
+##### Issue - 2
+- Error: Swagger endpoints not showing up..
+- Need to add below as Swagger UI is not finding the API docs, try adding this [Manual Loading of API Docs.]
+- springdoc.swagger-ui.urls[0].name=BookMyShow API
+  springdoc.swagger-ui.urls[0].url=/v3/api-docs
 ### Pending Implementations
-- Swagger
+- Swagger [Done]
 - Frontend
 - REST Impl
 - Decorator - Addons Edible items

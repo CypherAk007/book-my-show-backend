@@ -1,15 +1,19 @@
 package com.backend.BookMyShowBackend.dtos;
 
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+
+@Data
 public class SignupResponseDTO {
     private ResponseStatus status;
     private Long userId;
     private String message;
+    private String name;
+    private String email;
+    private String password;
+    private String lastname;
+    private String phone;
 
     @Override
     public String toString() {

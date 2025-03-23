@@ -1,12 +1,14 @@
 package com.backend.BookMyShowBackend.dtos;
 
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+
+@Data
 public class SignupRequestDTO {
+    private String name;
     private String email;
     private String password;
+    private String lastname;
+    private String phone;
 }

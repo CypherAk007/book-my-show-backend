@@ -37,24 +37,54 @@ package com.backend.BookMyShowBackend.config;
 //}
 
 
+import com.backend.BookMyShowBackend.services.jwt.JwtRequestFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 public class SecurityConfig {
 
+    private final JwtRequestFilter requestFilter;
+
+    public SecurityConfig(JwtRequestFilter requestFilter) {
+        this.requestFilter = requestFilter;
+    }
+//    @Bean
+//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//        http
+//                .csrf(csrf -> csrf.disable()) // Disable CSRF
+//                .authorizeHttpRequests(auth -> auth.anyRequest().permitAll()) // Allow all requests
+//                .sessionManagement(session -> session.disable()) // Disable session creation
+//                .httpBasic(httpBasic -> httpBasic.disable()) // Disable Basic Auth
+//                .formLogin(form -> form.disable()); // Disable form login
+//
+//        return http.build();
+//}
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .authorizeHttpRequests(auth -> auth.anyRequest().permitAll()) // Allow all requests
-                .csrf(csrf -> csrf.disable()) // Disable CSRF
-                .sessionManagement(session -> session.disable()) // Disable session creation
-                .httpBasic(httpBasic -> httpBasic.disable()) // Disable Basic Auth
-                .formLogin(form -> form.disable()); // Disable form login
+        return http
+                .csrf(csrf -> csrf.disable()) // Disable CSRF protection
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/authenticate", "/company/sign-up", "/client/sign-up", "/ads", "/search/{service}")
+                        .permitAll() // Publicly accessible endpoints
+                        .requestMatchers("/api/**").authenticated() // Protected endpoints
+                )
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // Stateless session (JWT-based auth)
+                )
+                .addFilterBefore(requestFilter, UsernamePasswordAuthenticationFilter.class) // Custom authentication filter
+                .build();
+    }
 
-        return http.build();
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
     }
 }

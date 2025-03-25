@@ -21,7 +21,8 @@ public class CorsConfig {
         config.setAllowedOrigins(List.of("http://localhost:3000","http://localhost:5173")); // React frontend URL
         config.setAllowedHeaders(List.of("Origin", "Content-Type", "Accept", "Authorization"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-
+        config.setExposedHeaders(List.of("Authorization"));
+        config.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
 

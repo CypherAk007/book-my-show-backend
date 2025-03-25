@@ -18,7 +18,7 @@ import java.util.function.Function;
 public class JwtUtil {
 
 //    public static final String SECRET = "4261656C64756E67";
-    public static final String SECRET = "qjKzpx5W3LgT9Vp93yMrBQ4FHhGkJ6Za";
+    public static final String SECRET = "lmdejuPVU5oTQgDZlva3Scadmmm+NnqbbdLSaT/Ccpc=";
 
     private String createToken(Map<String,Object> claims, String userName){
         return Jwts.builder()
